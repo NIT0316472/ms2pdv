@@ -42,7 +42,7 @@ npm run dev
 
 Linux/macOS: use `cp .env.example .env`.
 
-API: http://localhost:3333
+API: http://localhost:3000
 
 ### 3. Frontend
 Em outro terminal:

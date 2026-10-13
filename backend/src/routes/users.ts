@@ -1,1 +1,12 @@
-import { Router } from 'express'; import { auth } from '../middleware/auth'; import { currentUser } from '../controllers/userController'; const r=Router(); r.use(auth); r.get('/me',currentUser); export default r;
+import { Router } from 'express';
+import { auth, roles } from '../middleware/auth';
+import { currentUser, createUser, getUser, listUsers } from '../controllers/userController';
+
+const r = Router();
+
+r.get('/me', auth, currentUser);
+r.get('/', auth, roles('MANAGER'), listUsers);
+r.get('/:id', auth, roles('MANAGER'), getUser);
+r.post('/', auth, roles('MANAGER'), createUser);
+
+export default r;

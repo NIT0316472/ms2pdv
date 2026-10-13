@@ -2,9 +2,15 @@
 
 Base: `/api`
 
-## Auth
+## Autenticação
 - `POST /api/auth/login`
 - `GET /api/auth/me`
+
+## Usuários
+- `GET /api/users/me`
+- `GET /api/users`
+- `GET /api/users/:id`
+- `POST /api/users`
 
 ## Clientes
 - `GET /api/clients`
@@ -24,7 +30,4 @@ Base: `/api`
 - `GET /api/sales`
 - `POST /api/sales/:id/cancel`
 
-## Usuários
-- `GET /api/users/me`
-
-Todas as rotas, exceto login, exigem Bearer token.
+Todas as rotas, exceto `POST /api/auth/login`, exigem Bearer token.
