@@ -1,0 +1,1 @@
+import { Router } from 'express'; import * as c from '../controllers/clientController'; import { auth } from '../middleware/auth'; const r=Router(); r.use(auth); r.get('/',c.listClients); r.get('/:id/history',c.history); r.get('/:id',c.getClient); r.post('/',c.createClient); export default r;

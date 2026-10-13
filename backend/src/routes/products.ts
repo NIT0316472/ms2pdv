@@ -1,0 +1,1 @@
+import { Router } from 'express'; import * as p from '../controllers/productController'; import { auth,roles } from '../middleware/auth'; const r=Router(); r.use(auth); r.get('/',p.listProducts); r.get('/:id',p.getProduct); r.post('/',roles('MANAGER','CASHIER'),p.createProduct); r.put('/:id',roles('MANAGER'),p.updateProduct); export default r;

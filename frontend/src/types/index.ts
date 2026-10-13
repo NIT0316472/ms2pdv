@@ -1,0 +1,1 @@
+export type Role='CASHIER'|'MANAGER'; export interface User{id:string;name:string;email:string;role:Role}; export interface Product{id:string;code:string;name:string;description:string;price:number;stock_quantity:number}; export interface Client{id:string;name:string;cpf:string;phone?:string;email?:string};

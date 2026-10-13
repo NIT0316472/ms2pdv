@@ -1,0 +1,1 @@
+import { Router } from 'express'; import * as s from '../controllers/saleController'; import { auth,roles } from '../middleware/auth'; const r=Router(); r.use(auth); r.get('/',s.list); r.get('/:id',s.get); r.post('/',s.create); r.post('/:id/cancel',roles('MANAGER'),s.cancel); export default r;

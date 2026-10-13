@@ -1,0 +1,77 @@
+digraph DER {
+  graph [rankdir=LR, bgcolor="#10141b", pad="0.3", nodesep="0.5", ranksep="0.8", splines=ortho, fontname="Arial"];
+  node [shape=plain, fontname="Arial"];
+  edge [color="#8b93a7", penwidth=1.5, arrowsize=0.8, fontname="Arial", fontcolor="#cbd2df"];
+
+  users [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#8a5cf6" BGCOLOR="#1c2130">
+      <TR><TD ALIGN="LEFT" BGCOLOR="#8a5cf6"><FONT COLOR="white"><B>USERS</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">PK id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">name VARCHAR(120)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">email VARCHAR(180) UNIQUE</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">password_hash VARCHAR(255)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">role ENUM(CASHIER, MANAGER)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">created_at DATETIME</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  clients [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#21c7d9" BGCOLOR="#1c2130">
+      <TR><TD ALIGN="LEFT" BGCOLOR="#21c7d9"><FONT COLOR="white"><B>CLIENTS</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">PK id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">name VARCHAR(120)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">cpf VARCHAR(11) UNIQUE</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">phone VARCHAR(30)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">email VARCHAR(180)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">created_at DATETIME</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  products [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#f2b84b" BGCOLOR="#1c2130">
+      <TR><TD ALIGN="LEFT" BGCOLOR="#f2b84b"><FONT COLOR="white"><B>PRODUCTS</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">PK id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">code VARCHAR(60) UNIQUE</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">name VARCHAR(150)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">description TEXT</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">price DECIMAL(12,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">stock_quantity INT</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">active BOOLEAN</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">created_at DATETIME</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  sales [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#e05bbf" BGCOLOR="#1c2130">
+      <TR><TD ALIGN="LEFT" BGCOLOR="#e05bbf"><FONT COLOR="white"><B>SALES</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">PK id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">FK client_id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">FK user_id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">subtotal DECIMAL(12,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">discount_percent DECIMAL(5,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">discount_amount DECIMAL(12,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">total DECIMAL(12,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">status ENUM(COMPLETED,CANCELLED)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">FK cancelled_by CHAR(36) NULL</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">created_at / cancelled_at</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  sale_items [label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="7" COLOR="#4fb3ff" BGCOLOR="#1c2130">
+      <TR><TD ALIGN="LEFT" BGCOLOR="#4fb3ff"><FONT COLOR="white"><B>SALE_ITEMS</B></FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">PK id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">FK sale_id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">FK product_id CHAR(36)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">quantity INT</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">unit_price DECIMAL(12,2)</FONT></TD></TR>
+      <TR><TD ALIGN="LEFT"><FONT COLOR="#e9edf5">subtotal DECIMAL(12,2)</FONT></TD></TR>
+    </TABLE>
+  >];
+
+  clients -> sales [label=" 1 : N  "];
+  users -> sales [label=" 1 : N  cria "];
+  users -> sales [label=" 1 : N  cancela", constraint=false];
+  sales -> sale_items [label=" 1 : N  "];
+  products -> sale_items [label=" 1 : N  "];
+}
