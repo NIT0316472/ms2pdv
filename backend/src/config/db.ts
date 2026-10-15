@@ -1,5 +1,5 @@
-import mysql, { PoolConnection, ResultSetHeader } from 'mysql2/promise';
-import { env } from './env';
+import mysql, { PoolConnection, ResultSetHeader } from "mysql2/promise";
+import { env } from "./env";
 
 const url = new URL(env.databaseUrl);
 
@@ -8,7 +8,7 @@ export const pool = mysql.createPool({
   port: Number(url.port || 3306),
   user: decodeURIComponent(url.username),
   password: decodeURIComponent(url.password),
-  database: decodeURIComponent(url.pathname.replace(/^\//, '')),
+  database: decodeURIComponent(url.pathname.replace(/^\//, "")),
   connectionLimit: 10,
   waitForConnections: true,
   decimalNumbers: true,
@@ -20,7 +20,9 @@ export async function query<T = any>(sql: string, params: any[] = []) {
   return { rows: rows as T };
 }
 
-export async function withTransaction<T>(fn: (client: PoolConnection) => Promise<T>) {
+export async function withTransaction<T>(
+  fn: (client: PoolConnection) => Promise<T>,
+) {
   const client = await pool.getConnection();
   try {
     await client.beginTransaction();
