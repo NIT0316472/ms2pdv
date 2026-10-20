@@ -1,0 +1,284 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-10-20T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2024.9.0",
+  "resources": [
+    {
+      "_id": "wrk_ms2_pdv",
+      "parentId": null,
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "name": "MS² PDV",
+      "description": "Coleção de homologação do backend do sistema PDV.",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_ms2_pdv",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "name": "Base",
+      "data": {
+        "base_url": "http://localhost:3000/api",
+        "token": ""
+      },
+      "dataPropertyOrder": [
+        "base_url",
+        "token"
+      ],
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "_type": "environment"
+    },
+    {
+      "_id": "req_health",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/health",
+      "name": "Health",
+      "description": "Valida se a API está operacional.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1000000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_login",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/auth/login",
+      "name": "Login",
+      "description": "Autenticação do usuário.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"caixa@ms2.local\",\n  \"password\": \"Caixa@123\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -900000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_me",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/auth/me",
+      "name": "Me",
+      "description": "Consulta o usuário autenticado.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -800000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_clients_list",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/clients",
+      "name": "Clientes - Listar",
+      "description": "Lista clientes cadastrados.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -700000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_clients_create",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/clients",
+      "name": "Clientes - Criar",
+      "description": "Cadastra um novo cliente.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Ana Souza\",\n  \"cpf\": \"12345678909\",\n  \"phone\": \"21999998888\",\n  \"email\": \"ana@teste.com\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -600000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_client_history",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/clients/{{ client_id }}/history",
+      "name": "Clientes - Histórico",
+      "description": "Obtém o histórico de compras do cliente (RF05).",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "client_id",
+          "name": "client_id",
+          "value": "11111111-1111-4111-8111-111111111111"
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -500000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_list",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Produtos - Listar",
+      "description": "Lista produtos ativos.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -400000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_products_create",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/products",
+      "name": "Produtos - Criar",
+      "description": "Cadastra um produto.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"code\": \"CAM-002\",\n  \"name\": \"Jaqueta\",\n  \"description\": \"Teste de homologação\",\n  \"price\": 199.9,\n  \"stockQuantity\": 5\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -300000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_sales_create",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/sales",
+      "name": "Vendas - Criar",
+      "description": "Cria uma venda com transação e atualização de estoque.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"clientId\": \"11111111-1111-4111-8111-111111111111\",\n  \"items\": [\n    {\n      \"productId\": \"22222222-2222-4222-8222-222222222222\",\n      \"quantity\": 2\n    }\n  ],\n  \"discountPercent\": 0\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -200000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_sales_cancel",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/sales/{{ sale_id }}/cancel",
+      "name": "Vendas - Cancelar",
+      "description": "Cancela uma venda, reservado para gerente.",
+      "method": "POST",
+      "body": {},
+      "parameters": [
+        {
+          "id": "sale_id",
+          "name": "sale_id",
+          "value": "00000000-0000-4000-8000-000000000000"
+        }
+      ],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": -100000,
+      "_type": "request"
+    },
+    {
+      "_id": "req_users_list",
+      "parentId": "wrk_ms2_pdv",
+      "modified": 1760916000000,
+      "created": 1760916000000,
+      "url": "{{ _.base_url }}/users",
+      "name": "Usuários - Listar",
+      "description": "Lista usuários do sistema.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "bearer",
+        "token": "{{ _.token }}"
+      },
+      "metaSortKey": 0,
+      "_type": "request"
+    }
+  ]
+}
