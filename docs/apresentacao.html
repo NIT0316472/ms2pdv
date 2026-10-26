@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apresentação Final — Sistema PDV Singularidade</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --card-bg: rgba(18, 24, 38, 0.92);
+      --card-border: rgba(141, 125, 255, 0.28);
+      --primary: #7ce7ff;
+      --secondary: #8d7dff;
+      --accent: #ff7ecb;
+      --success: #7ef7c4;
+      --text: #edf3ff;
+      --muted: #9eaed1;
+      --glow: 0 0 25px rgba(124, 231, 255, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; }
+    
+    body {
+      background: radial-gradient(circle at 20% 20%, rgba(105, 93, 255, 0.3), transparent 25%),
+                  radial-gradient(circle at 80% 25%, rgba(124, 231, 255, 0.2), transparent 22%),
+                  radial-gradient(circle at 50% 80%, rgba(255, 126, 203, 0.15), transparent 25%),
+                  linear-gradient(180deg, #040812 0%, #070b14 30%, #0a0d18 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Barra Superior */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: rgba(9, 14, 23, 0.85);
+      border-bottom: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      z-index: 10;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-logo {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #070b14;
+      font-weight: 900;
+      font-size: 1.2rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      box-shadow: var(--glow);
+    }
+
+    .header-info h1 {
+      font-size: 1.05rem;
+      letter-spacing: 0.05em;
+    }
+    .header-info p {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .controls-timer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(14, 21, 35, 0.9);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .btn-tool {
+      background: rgba(141, 125, 255, 0.15);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-tool:hover {
+      background: rgba(124, 231, 255, 0.25);
+      border-color: var(--primary);
+    }
+
+    /* Container dos Slides */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1100px;
+      height: 640px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 44px 50px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7), var(--glow);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      animation: fadeIn 0.4s ease;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .slide-tag {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 4px 12px;
+      background: rgba(124, 231, 255, 0.12);
+      border: 1px solid rgba(124, 231, 255, 0.35);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .slide-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-box {
+      background: rgba(12, 17, 29, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .feature-box:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+    .feature-box h3 {
+      color: var(--primary);
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-box p, .feature-box li {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .feature-box ul {
+      margin-left: 18px;
+      margin-top: 8px;
+    }
+
+    .highlight-pill {
+      background: linear-gradient(135deg, rgba(124, 231, 255, 0.15), rgba(141, 125, 255, 0.15));
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    /* Roteiro do Apresentador (Notas) */
+    .speaker-notes {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 18px;
+      background: rgba(255, 126, 203, 0.08);
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      color: #ffd2ea;
+      line-height: 1.45;
+    }
+    .speaker-notes.visible {
+      display: block;
+    }
+    .speaker-notes b {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Barra Inferior de Navegação */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 28px;
+      background: rgba(9, 14, 23, 0.9);
+      border-top: 1px solid var(--card-border);
+      z-index: 10;
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      max-width: 450px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 20px;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+      width: 10%;
+      transition: width 0.3s ease;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border: none;
+      color: #070b14;
+      font-weight: 800;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease, filter 0.15s ease;
+    }
+    .nav-btn:hover:not(:disabled) {
+      filter: brightness(1.15);
+      transform: translateY(-1px);
+    }
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Checklist da Live Demo */
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: rgba(14, 20, 32, 0.7);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .checklist-item.checked {
+      background: rgba(126, 247, 196, 0.12);
+      border-color: var(--success);
+    }
+    .checklist-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: var(--success);
+      font-size: 0.9rem;
+    }
+    .checklist-item.checked .checklist-checkbox {
+      border-color: var(--success);
+      background: rgba(126, 247, 196, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header>
+    <div class="brand-logo">
+      <div class="badge-logo">S</div>
+      <div class="header-info">
+        <h1>Singularidade · Apresentação Final</h1>
+        <p>Defesa Técnica de Sistema PDV · Sprint 6</p>
+      </div>
+    </div>
+
+    <div class="controls-timer">
+      <div class="timer-badge">
+        <span>⏱️</span>
+        <span id="timerDisplay">15:00</span>
+      </div>
+      <button class="btn-tool" id="timerToggleBtn" onclick="toggleTimer()">Iniciar Timer</button>
+      <button class="btn-tool" onclick="toggleNotes()">Notas (N)</button>
+      <button class="btn-tool" onclick="toggleFullscreen()">Tela Cheia (F)</button>
+    </div>
+  </header>
+
+  <!-- Main Slide Canvas -->
+  <main>
+
+    <!-- Slide 1: Capa -->
+    <div class="slide active" id="slide-1">
+      <span class="slide-tag">Slide 01 · Capa Oficial</span>
+      <h2 class="slide-title">Sistema de Gestão & PDV — Singularidade</h2>
+      <div class="slide-body" style="justify-content: center; align-items: center; text-align: center;">
+        <div style="max-width: 750px; padding: 30px; background: rgba(14, 21, 35, 0.75); border-radius: 18px; border: 1px solid var(--card-border);">
+          <h3 style="font-size: 1.5rem; color: var(--primary); margin-bottom: 12px;">Desafio Prático Final de Engenharia de Software</h3>
+          <p style="color: var(--text); font-size: 1.1rem; margin-bottom: 24px;">
+            Modernização integral dos processos de vendas, base de clientes e catálogo digital para o varejo de moda.
+          </p>
+          <div style="display: flex; justify-content: space-around; border-top: 1px solid var(--card-border); padding-top: 18px;">
+            <div>
+              <span style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">Unidade Curricular</span>
+              <p style="font-weight: 700; color: #fff;">Desenvolvimento de Sistemas</p>
+            </div>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">Equipe Desenvolvedora</span>
+              <p style="font-weight: 700; color: var(--success);">[Nome da Dupla]</p>
+            </div>
+            <div>
+              <span style="font-size: 0.8rem; color: var(--muted); text-transform: uppercase;">Duração Máxima</span>
+              <p style="font-weight: 700; color: var(--accent);">15 Minutos (Pitch + Live Demo)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-1">
+        <b>Roteiro de Fala (Abertura - 30 seg):</b>
+        "Boa tarde a todos os professores e membros da banca avaliadora. Eu sou [Nome 1] e meu colega é [Nome 2]. Apresentamos a defesa técnica do Sistema PDV desenvolvido para a Singularidade, estruturado e entregue ao longo de 6 sprints simulando uma equipe profissional de desenvolvimento contratada para modernizar a operação varejista."
+      </div>
+    </div>
+
+    <!-- Slide 2: O Cenário e o Problema -->
+    <div class="slide" id="slide-2">
+      <span class="slide-tag">Slide 02 · Diagnóstico Inicial</span>
+      <h2 class="slide-title">O Cenário e o Problema: A Era do Papel</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="feature-box" style="border-left: 4px solid #ff7e7e;">
+            <h3 style="color: #ff9999;">📋 Como a loja funcionava</h3>
+            <ul>
+              <li><b>Controle em Cadernos:</b> Peças e estoque registrados manualmente, sem rastreabilidade.</li>
+              <li><b>Vendas em Blocos de Papel:</b> Registros manuscritos feitos sob pressão no balcão.</li>
+              <li><b>Cálculos na Calculadora:</b> Vendedores somando totais e descontos à mão, propensos a erros aritméticos.</li>
+              <li><b>Catálogos Impressos:</b> Busca de preços em catálogos físicos desgastados.</li>
+            </ul>
+          </div>
+          <div class="feature-box" style="border-left: 4px solid var(--accent);">
+            <h3 style="color: var(--accent);">⚠️ Impactos Críticos no Negócio</h3>
+            <ul>
+              <li><b>Filas no Checkout:</b> Lentidão extrema no fechamento durante horários de pico.</li>
+              <li><b>Inconsistência Financeira:</b> Fechamento de caixa demorava horas e frequentemente apresentava divergências.</li>
+              <li><b>Perda de Fidelização:</b> A gerência não conhecia os melhores clientes nem seus históricos de consumo.</li>
+              <li><b>Vulnerabilidade Financeira:</b> Ausência de alçadas gerenciais para concessão de grandes descontos e cancelamentos.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-2">
+        <b>Roteiro de Fala (Diagnóstico - 1 min):</b>
+        "A Singularidade é uma loja de vestuário e acessórios em expansão, mas sua operação estava estrangulada pelo uso arcaico de papel e calculadoras. Em horários de pico, as filas causavam lentidão e descontentamento. Além disso, o fechamento financeiro do dia demorava horas e a empresa não tinha dados consolidados para fidelizar seus compradores."
+      </div>
+    </div>
+
+    <!-- Slide 3: A Solução Proposta -->
+    <div class="slide" id="slide-3">
+      <span class="slide-tag">Slide 03 · Escopo da Solução</span>
+      <h2 class="slide-title">A Solução Proposta: Os Três Pilares</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="feature-box">
+            <h3>🏷️ Catálogo de Produtos</h3>
+            <p>Digitalização completa do catálogo com busca rápida por código, nome ou descrição.</p>
+            <ul style="margin-top: 10px;">
+              <li>Grade com tamanho, cor e gênero.</li>
+              <li><span class="highlight-pill">Novo:</span> <b>Gerador de Código Aleatório (2 letras + 3 números, ex: AB123)</b> com garantia de unicidade.</li>
+              <li>Controle e baixa de estoque em tempo real.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>👥 Base de Clientes</h3>
+            <p>Centralização do histórico de relacionamento e compras de cada cliente.</p>
+            <ul style="margin-top: 10px;">
+              <li>Validação e bloqueio estrito de CPF duplicado (RN01).</li>
+              <li>Vínculo automático de compras ao perfil do cliente.</li>
+              <li>Histórico de compras integrado.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>⚡ Frente de Caixa (PDV)</h3>
+            <p>Terminal web ágil, intuitivo e com validações financeiras integradas.</p>
+            <ul style="margin-top: 10px;">
+              <li>Adição rápida de itens ao carrinho.</li>
+              <li>Cálculos automáticos de subtotal, desconto e total.</li>
+              <li><b>Alçadas de Desconto:</b> Limite de 10% para Caixa e até 30% para Gerente.</li>
+              <li>Baixa atômica de estoque no checkout.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-3">
+        <b>Roteiro de Fala (Solução - 1 min):</b>
+        "Para erradicar o problema, construímos uma aplicação web dividida em três pilares: o Catálogo Digital com gerador inteligente de códigos no formato de duas letras e três números (ex: AB123), a Base de Clientes com bloqueio de duplicidade por CPF, e a Frente de Caixa veloz com cálculo automatizado e validação de alçadas de desconto."
+      </div>
+    </div>
+
+    <!-- Slide 4: Arquitetura e Tecnologias -->
+    <div class="slide" id="slide-4">
+      <span class="slide-tag">Slide 04 · Engenharia de Software</span>
+      <h2 class="slide-title">Arquitetura & Tecnologias Adotadas</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="feature-box">
+            <h3>💻 Frontend</h3>
+            <ul>
+              <li><b>React 18 & Vite:</b> SPA veloz e componentizada.</li>
+              <li><b>TypeScript:</b> Tipagem estática rigorosa.</li>
+              <li><b>Axios:</b> Comunicação assíncrona com interceptores.</li>
+              <li><b>Design Dark Futurista:</b> Conforto visual para turnos contínuos no caixa.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>⚙️ Backend API</h3>
+            <ul>
+              <li><b>Node.js & Express:</b> API RESTful escalável.</li>
+              <li><b>TypeScript:</b> Contratos de tipos unificados.</li>
+              <li><b>Zod:</b> Validação e sanitização estrita de inputs.</li>
+              <li><b>JWT & Bcrypt:</b> Autenticação stateless e senhas seguras.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>🗄️ Banco & Ferramentas</h3>
+            <ul>
+              <li><b>MySQL 8.4 (InnoDB):</b> Suporte a chaves estrangeiras e transações ACID.</li>
+              <li><b>Docker Compose:</b> Provisionamento local reproduzível.</li>
+              <li><b>Vitest:</b> Testes automatizados da API e do gerador de códigos.</li>
+              <li><b>Git/GitHub & VS Code:</b> Versionamento e desenvolvimento.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-4">
+        <b>Roteiro de Fala (Arquitetura - 1 min):</b>
+        "Adotamos uma stack moderna full TypeScript. No frontend, React com Vite proporciona renderização instantânea. No backend, Node com Express e Zod protege as rotas contra payloads malformados. No banco, o MySQL com InnoDB garante integridade referencial e suporte a transações ACID, eliminando o risco de inconsistências de estoque."
+      </div>
+    </div>
+
+    <!-- Slide 5: Modelagem de Dados (DER) -->
+    <div class="slide" id="slide-5">
+      <span class="slide-tag">Slide 05 · Banco de Dados Relacional</span>
+      <h2 class="slide-title">Modelagem de Dados (DER & 3FN)</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="feature-box">
+            <h3>📊 Entidades & Relacionamentos</h3>
+            <ul style="font-size: 0.88rem;">
+              <li><b>USERS:</b> Autenticação e papéis (<code>CASHIER</code>, <code>MANAGER</code>).</li>
+              <li><b>CLIENTS:</b> Cadastro com <code>cpf VARCHAR(11) UNIQUE</code>.</li>
+              <li><b>PRODUCTS:</b> Código padronizado <code>code UNIQUE</code>, preço e estoque.</li>
+              <li><b>SALES:</b> Cabeçalho da venda (cliente, operador, descontos e status).</li>
+              <li><b>SALE_ITEMS (Associativa):</b> Suporte a múltiplos produtos por venda em 3FN, preservando o valor unitário histórico da transação.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: #10141b;">
+            <div style="font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 8px;">
+              Fluxo Relacional no Banco de Dados:
+            </div>
+            <div style="padding: 16px; border: 1px dashed var(--card-border); border-radius: 12px; width: 100%; text-align: center; font-size: 0.9rem; line-height: 1.8;">
+              <span style="color: var(--secondary);">CLIENTS (1)</span> ───&lt; <span style="color: var(--success); font-weight: 700;">SALES (N)</span> &gt;─── <span style="color: var(--secondary);">USERS (1)</span>
+              <br/>
+              │
+              <br/>
+              ▼
+              <br/>
+              <span style="color: var(--accent); font-weight: 700;">SALE_ITEMS (1:N)</span>
+              <br/>
+              ▲
+              <br/>
+              │
+              <br/>
+              <span style="color: var(--primary);">PRODUCTS (1:N)</span>
+            </div>
+            <span style="font-size: 0.75rem; color: var(--muted); margin-top: 10px;">
+              *Consulte o diagrama vetorial em <code>docs/DER.svg</code>.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-5">
+        <b>Roteiro de Fala (Modelagem - 1:30 min):</b>
+        "Na modelagem relacional, estruturamos as tabelas atendendo à Terceira Forma Normal. Note a importância da tabela associativa sale_items: além de permitir N produtos por venda, ela congela o preço histórico unitário vendido. Se o produto sofrer reajuste de preço na semana seguinte, o valor financeiro da venda passada não é alterado."
+      </div>
+    </div>
+
+    <!-- Slide 6: Principais Desafios -->
+    <div class="slide" id="slide-6">
+      <span class="slide-tag">Slide 06 · Transparência Técnica</span>
+      <h2 class="slide-title">Principais Desafios Enfrentados</h2>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="feature-box" style="border-top: 4px solid var(--accent);">
+            <h3>🔒 Concorrência no Estoque</h3>
+            <p>Garantir que dois operadores de caixa não consigam vender a mesma última unidade de uma peça ao mesmo tempo.</p>
+          </div>
+
+          <div class="feature-box" style="border-top: 4px solid var(--secondary);">
+            <h3>🌐 Integração CORS & Tipos</h3>
+            <p>Comunicação assíncrona entre portas (5173 e 3000) e alinhamento estrito dos DTOs no TypeScript sem redundâncias.</p>
+          </div>
+
+          <div class="feature-box" style="border-top: 4px solid var(--primary);">
+            <h3>🛡️ Alçadas de Desconto</h3>
+            <p>Impedir qualquer tentativa de injeção de desconto acima do limite permitido para o papel do usuário no balcão.</p>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-6">
+        <b>Roteiro de Fala (Desafios - 1 min):</b>
+        "Como bons engenheiros de software, enfrentamos bloqueios reais. Destacamos três: a garantia de concorrência no estoque, o tratamento de CORS e alinhamento de tipos entre frontend e backend, e a blindagem das regras de alçada de desconto contra manipulação externa."
+      </div>
+    </div>
+
+    <!-- Slide 7: Soluções e Aprendizados -->
+    <div class="slide" id="slide-7">
+      <span class="slide-tag">Slide 07 · Resolução de Problemas</span>
+      <h2 class="slide-title">Soluções Criadas & Aprendizados</h2>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="feature-box">
+            <h3>⚙️ Soluções de Engenharia</h3>
+            <ul>
+              <li><b>Transações Atômicas (ACID):</b> Uso de <code>withTransaction</code> com bloqueio <code>FOR UPDATE</code> no MySQL, prevenindo estoque negativo.</li>
+              <li><b>Gerador de Código Padronizado:</b> Algoritmo para <b>2 letras e 3 números (ex: AB123)</b> com loop de verificação de duplicidade no banco.</li>
+              <li><b>Validação em Duas Camadas:</b> Frontend com feedback visual em tempo real e Backend validando token JWT com teto de desconto via variáveis de ambiente.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>📚 Métodos & Boas Práticas</h3>
+            <ul>
+              <li><b>Testes Automatizados (Vitest):</b> Validação das regras de negócio e teste unitário para o gerador de códigos aleatórios.</li>
+              <li><b>Arquitetura em Camadas (Separation of Concerns):</b> Controllers cuidam da camada HTTP, Services das regras e Models do SQL.</li>
+              <li><b>Uso Estratégico de IA:</b> Apoio na geração de sementes de teste, documentação padronizada e refinamento de código.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-7">
+        <b>Roteiro de Fala (Soluções - 1 min):</b>
+        "Para cada desafio criamos uma solução definitiva. Usamos transações com FOR UPDATE para travar o registro do item durante a baixa. Desenvolvemos o gerador de códigos de duas letras e três números com verificação de unicidade. E implementamos a arquitetura em camadas para que nenhuma regra dependa apenas da interface visual."
+      </div>
+    </div>
+
+    <!-- Slide 8: Live Demo -->
+    <div class="slide" id="slide-8">
+      <span class="slide-tag">Slide 08 · Demonstração Prática</span>
+      <h2 class="slide-title">Roteiro Guiado da Live Demo (Ao Vivo)</h2>
+      <div class="slide-body">
+        <p style="color: var(--muted); font-size: 0.95rem;">
+          Clique nos itens abaixo à medida que forem demonstrados no sistema rodando localmente:
+        </p>
+        <div style="max-width: 800px; margin: 0 auto; width: 100%;">
+          <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="checklist-checkbox">✓</div>
+            <div><b>Passo 1:</b> Login no sistema (Demonstrar acesso com perfil de Caixa e Gerente na Singularidade).</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="checklist-checkbox">✓</div>
+            <div><b>Passo 2:</b> Cadastro rápido de cliente com validação de CPF único.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="checklist-checkbox">✓</div>
+            <div><b>Passo 3:</b> Cadastro de produto usando o <b>Gerador de Código Aleatório (2 letras + 3 números)</b>.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="checklist-checkbox">✓</div>
+            <div><b>Passo 4:</b> Abertura do PDV, busca por código e adição dos itens ao carrinho.</div>
+          </div>
+          <div class="checklist-item" onclick="toggleCheck(this)">
+            <div class="checklist-checkbox">✓</div>
+            <div><b>Passo 5:</b> Aplicação de desconto (testando limite do caixa) e finalização da venda com baixa de estoque.</div>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-8">
+        <b>Roteiro de Fala (Transição para Demo - 30 seg + 7 min Demo):</b>
+        "Agora vamos alternar para a aplicação rodando localmente na nossa máquina. Demonstraremos ao vivo o login, o cadastro do cliente, o cadastro da peça com o gerador de código de duas letras e três números, a montagem do carrinho, a validação do desconto e a conclusão da venda."
+      </div>
+    </div>
+
+    <!-- Slide 9: Próximos Passos (Versão 2.0) -->
+    <div class="slide" id="slide-9">
+      <span class="slide-tag">Slide 09 · Visão de Futuro</span>
+      <h2 class="slide-title">Próximos Passos (Versão 2.0)</h2>
+      <div class="slide-body">
+        <p style="color: var(--muted); font-size: 0.95rem;">
+          Oportunidades de expansão planejadas para um ciclo de 2 meses adicionais:
+        </p>
+        <div class="grid-2">
+          <div class="feature-box">
+            <h3>📈 Dashboards & Inteligência Comercial</h3>
+            <ul>
+              <li>Gráficos de vendas em tempo real e ticket médio.</li>
+              <li>Curva ABC de faturamento por categoria e estação.</li>
+              <li>Relatório de fechamento diário automatizado com conferência de sangria e suprimento.</li>
+            </ul>
+          </div>
+
+          <div class="feature-box">
+            <h3>📲 Fidelização & Automação de Balcão</h3>
+            <ul>
+              <li>Envio automático de cupom/recibo digital via WhatsApp e E-mail.</li>
+              <li>Alerta proativo de reposição de estoque para peças em nível crítico.</li>
+              <li>Integração direta com leitor físico de código de barras USB/Bluetooth no PDV.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-9">
+        <b>Roteiro de Fala (Versão 2.0 - 45 seg):</b>
+        "Para a versão 2.0, planejamos levar a Singularidade ao patamar de varejo inteligente, com dashboards gráficos para tomada de decisão da diretoria, alertas preditivos de compra para estoque crítico e emissão de recibo digital direto no WhatsApp do comprador."
+      </div>
+    </div>
+
+    <!-- Slide 10: Encerramento -->
+    <div class="slide" id="slide-10">
+      <span class="slide-tag">Slide 10 · Conclusão</span>
+      <h2 class="slide-title">Encerramento & Agradecimentos</h2>
+      <div class="slide-body" style="text-align: center; justify-content: center; align-items: center;">
+        <div style="max-width: 700px; padding: 36px; background: rgba(14, 21, 35, 0.7); border-radius: 18px; border: 1px solid var(--card-border);">
+          <h3 style="font-size: 1.8rem; color: var(--success); margin-bottom: 14px;">Obrigado pela atenção!</h3>
+          <p style="color: var(--text); font-size: 1.05rem; margin-bottom: 24px;">
+            Agradecemos aos professores e à instituição pelo apoio técnico durante a jornada deste projeto prático.
+          </p>
+          <div style="padding: 16px; background: rgba(124, 231, 255, 0.1); border-radius: 12px; border: 1px solid var(--primary);">
+            <b style="color: var(--primary); font-size: 1.1rem; display: block; margin-bottom: 4px;">Espaço Aberto para Perguntas</b>
+            <span style="color: var(--muted); font-size: 0.9rem;">Estamos à disposição da banca avaliadora para questionamentos técnicos e demonstrações complementares sobre o projeto Singularidade.</span>
+          </div>
+        </div>
+      </div>
+      <div class="speaker-notes" id="notes-10">
+        <b>Roteiro de Fala (Finalização - 45 seg):</b>
+        "Concluímos com orgulho a entrega do sistema para a Singularidade, comprovando que arquiteturas limpas e boas práticas de banco relacional resolvem os gargalos do mundo real. Muito obrigado a todos e agora abrimos com entusiasmo para as perguntas da banca."
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Bottom Navigation Bar -->
+  <footer>
+    <button class="nav-btn" id="prevBtn" onclick="prevSlide()" disabled>
+      ◀ Anterior
+    </button>
+
+    <div style="display: flex; align-items: center;">
+      <span id="slideCounter" style="font-size: 0.9rem; font-weight: 700; color: var(--muted);">Slide 1 de 10</span>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
+      Próximo ▶
+    </button>
+  </footer>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+    let timerSeconds = 15 * 60;
+    let timerInterval = null;
+
+    function showSlide(index) {
+      if (index < 1 || index > totalSlides) return;
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById(`slide-${index}`).classList.add('active');
+      currentSlide = index;
+
+      document.getElementById('slideCounter').innerText = `Slide ${currentSlide} de ${totalSlides}`;
+      document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) showSlide(currentSlide - 1);
+    }
+
+    function toggleNotes() {
+      const activeNotes = document.getElementById(`notes-${currentSlide}`);
+      if (activeNotes) {
+        activeNotes.classList.toggle('visible');
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
+    }
+
+    // Cronômetro
+    function toggleTimer() {
+      const btn = document.getElementById('timerToggleBtn');
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        btn.innerText = 'Retomar Timer';
+      } else {
+        timerInterval = setInterval(() => {
+          if (timerSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert('Tempo de 15 minutos esgotado!');
+            return;
+          }
+          timerSeconds--;
+          const m = String(Math.floor(timerSeconds / 60)).padStart(2, '0');
+          const s = String(timerSeconds % 60).padStart(2, '0');
+          document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+        }, 1000);
+        btn.innerText = 'Pausar Timer';
+      }
+    }
+
+    // Atalhos de teclado
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key.toLowerCase() === 'n') {
+        toggleNotes();
+      } else if (e.key.toLowerCase() === 'f') {
+        toggleFullscreen();
+      }
+    });
+
+    showSlide(1);
+  </script>
+</body>
+</html>

@@ -17,7 +17,7 @@ vi.mock('../src/config/db', () => ({
 
 const { default: app } = await import('../src/server');
 
-describe('MS² PDV API', () => {
+describe('Singularidade PDV API', () => {
   beforeEach(() => {
     process.env.JWT_SECRET = 'test-secret';
     db.query.mockReset();
@@ -29,7 +29,7 @@ describe('MS² PDV API', () => {
       {
         id: role === 'MANAGER' ? 'mgr-1' : 'cashier-1',
         name: role === 'MANAGER' ? 'Gerente' : 'Caixa',
-        email: role === 'MANAGER' ? 'gerente@ms2.local' : 'caixa@ms2.local',
+        email: role === 'MANAGER' ? 'gerente@singularidade.local' : 'caixa@singularidade.local',
         role,
       },
       process.env.JWT_SECRET!,
@@ -50,7 +50,7 @@ describe('MS² PDV API', () => {
         {
           id: 'cashier-1',
           name: 'Caixa',
-          email: 'caixa@ms2.local',
+          email: 'caixa@singularidade.local',
           password_hash: passwordHash,
           role: 'CASHIER',
         },
@@ -59,7 +59,7 @@ describe('MS² PDV API', () => {
 
     const res = await request(app)
       .post('/api/auth/login')
-      .send({ email: 'caixa@ms2.local', password: 'Caixa@123' });
+      .send({ email: 'caixa@singularidade.local', password: 'Caixa@123' });
 
     expect(res.status).toBe(200);
     expect(res.body.user.role).toBe('CASHIER');
@@ -245,7 +245,7 @@ describe('MS² PDV API', () => {
   it('GET /api/users e POST /api/users respeitam autorização por papel', async () => {
     db.query.mockImplementation(async (sql: string) => {
       if (sql.includes('SELECT id, name, email, role, created_at FROM users')) {
-        return { rows: [{ id: 'u-1', name: 'Gerente', email: 'gerente@ms2.local', role: 'MANAGER', created_at: '2026-10-20' }] };
+        return { rows: [{ id: 'u-1', name: 'Gerente', email: 'gerente@singularidade.local', role: 'MANAGER', created_at: '2026-10-20' }] };
       }
       if (sql.includes('INSERT INTO users')) {
         return { rows: [] };
@@ -262,5 +262,20 @@ describe('MS² PDV API', () => {
       .get('/api/users')
       .set('Authorization', `Bearer ${token('CASHIER')}`);
     expect(forbidden.status).toBe(403);
+  });
+
+  it('DELETE /api/products/:id remove produto válido para gerente', async () => {
+    db.query.mockImplementation(async (sql: string) => {
+      if (sql.includes('DELETE FROM products WHERE id=?')) {
+        return { rows: { affectedRows: 1 } };
+      }
+      return { rows: [] };
+    });
+
+    const deleteProduct = await request(app)
+      .delete('/api/products/product-1')
+      .set('Authorization', `Bearer ${token('MANAGER')}`);
+    expect(deleteProduct.status).toBe(200);
+    expect(deleteProduct.body.message).toBe('Produto removido com sucesso.');
   });
 });

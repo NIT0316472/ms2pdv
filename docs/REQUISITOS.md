@@ -1,7 +1,7 @@
 # Sprint 1 — Engenharia de Requisitos e Dados
 
 ## Problema
-A MS² Vestuário trabalha com cadernos, blocos de papel, calculadoras e catálogos impressos, causando lentidão no caixa, inconsistência financeira e perda de histórico.
+A Singularidade trabalha com cadernos, blocos de papel, calculadoras e catálogos impressos, causando lentidão no caixa, inconsistência financeira e perda de histórico.
 
 ## Requisitos funcionais
 - RF01 — Autenticar usuário por e-mail e senha.

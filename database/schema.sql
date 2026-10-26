@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS ms2_pdv CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE ms2_pdv;
+CREATE DATABASE IF NOT EXISTS singularidade_pdv CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE singularidade_pdv;
 
 CREATE TABLE IF NOT EXISTS users (
   id CHAR(36) PRIMARY KEY,
@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS products (
   code VARCHAR(60) UNIQUE NOT NULL,
   name VARCHAR(150) NOT NULL,
   description TEXT,
+  size VARCHAR(20) NULL,
+  color VARCHAR(50) NULL,
+  gender VARCHAR(30) NULL,
   price DECIMAL(12,2) NOT NULL,
   stock_quantity INT NOT NULL DEFAULT 0,
   active BOOLEAN NOT NULL DEFAULT TRUE,

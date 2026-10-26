@@ -1,4 +1,4 @@
-# Homologação do fluxo MS² PDV
+# Homologação do fluxo Singularidade PDV
 
 ## Evidências executadas
 
@@ -40,7 +40,7 @@
 - Frontend: a aplicação identifica o papel do usuário e exibe o status na interface; o restante da regra de autorização continua sendo reforçado pela API.
 
 ## Coleção para Insomnia/Thunder Client
-- Arquivo: `docs/insomnia-ms2-pdv.json`
+- Arquivo: `docs/insomnia-singularidade-pdv.json`
 - Contém requests para autenticação, clientes, produtos, vendas e usuários.
 
 ## Observações finais

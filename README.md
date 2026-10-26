@@ -1,4 +1,4 @@
-# MS² Vestuário — Sistema PDV
+# Singularidade — Sistema PDV
 
 Projeto de Conclusão de Curso baseado na apresentação fornecida: modernização da operação varejista, catálogo digital, base de clientes e frente de caixa (PDV), com autenticação, níveis de acesso, regras de desconto e integração Frontend ↔ API ↔ Banco.
 
@@ -55,8 +55,8 @@ npm run dev
 Frontend: http://localhost:5173
 
 ## Usuários de demonstração
-- Caixa: `caixa@ms2.local` / `Caixa@123`
-- Gerente: `gerente@ms2.local` / `Gerente@123`
+- Caixa: `caixa@singularidade.local` / `Caixa@123`
+- Gerente: `gerente@singularidade.local` / `Gerente@123`
 
 Troque essas senhas antes de qualquer uso real.
 
@@ -75,7 +75,14 @@ Troque essas senhas antes de qualquer uso real.
 3. Regras de negócio e rotas — Controllers, Services e API.
 4. Interface — React/Vite, Login, PDV, Produtos e Clientes.
 5. Integração e homologação — Axios, fluxo E2E e testes.
-6. Defesa — roteiro em `docs/DEFESA.md`.
+6. Defesa — Slides interativos em `docs/apresentacao.html`, roteiro completo em `docs/APRESENTACAO_SLIDES.md` e checklist em `docs/DEFESA.md`.
+
+## Gerador de Código de Produtos (2 Letras e 3 Números)
+O sistema conta com um gerador automático padronizado de códigos (ex: `MS001`, `AB123`) implementado tanto no Frontend (`Products.tsx`) quanto na API (`/api/products/generate-code`), com verificação de unicidade contra duplicidades no banco de dados.
+
+## Apresentação Final (Sprint 6)
+- **Apresentação Interativa em Slides:** Abra [`docs/apresentacao.html`](docs/apresentacao.html) no navegador para uma apresentação completa com timer de 15 minutos, modo apresentador (`N`) e tela cheia (`F`).
+- **Roteiro e Script de Fala:** Consulte [`docs/APRESENTACAO_SLIDES.md`](docs/APRESENTACAO_SLIDES.md) para o texto de apoio slide por slide e respostas para a banca.
 
 ## DER
 

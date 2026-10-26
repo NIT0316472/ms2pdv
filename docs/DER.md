@@ -1,4 +1,4 @@
-# DER — MS² Vestuário
+# DER — Singularidade
 
 ## Diagrama Entidade-Relacionamento
 

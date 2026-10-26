@@ -4,7 +4,7 @@ const dbHost = process.env.DB_HOST ?? "localhost";
 const dbPort = Number(process.env.DB_PORT ?? 3307);
 const dbUser = encodeURIComponent(process.env.DB_USER ?? "root");
 const dbPassword = encodeURIComponent(process.env.DB_PASSWORD ?? "alunolab");
-const dbName = process.env.DB_NAME ?? "ms2_pdv";
+const dbName = process.env.DB_NAME ?? "singularidade_pdv";
 
 export const env = {
   port: Number(process.env.PORT ?? 3000),

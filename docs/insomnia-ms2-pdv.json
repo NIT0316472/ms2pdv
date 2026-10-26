@@ -5,18 +5,18 @@
   "__export_source": "insomnia.desktop.app:v2024.9.0",
   "resources": [
     {
-      "_id": "wrk_ms2_pdv",
+      "_id": "wrk_singularidade_pdv",
       "parentId": null,
       "modified": 1760916000000,
       "created": 1760916000000,
-      "name": "MS² PDV",
+      "name": "Singularidade PDV",
       "description": "Coleção de homologação do backend do sistema PDV.",
       "scope": "collection",
       "_type": "workspace"
     },
     {
-      "_id": "env_ms2_pdv",
-      "parentId": "wrk_ms2_pdv",
+      "_id": "env_singularidade_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "name": "Base",
@@ -35,7 +35,7 @@
     },
     {
       "_id": "req_health",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/health",
@@ -51,7 +51,7 @@
     },
     {
       "_id": "req_login",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/auth/login",
@@ -60,7 +60,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n  \"email\": \"caixa@ms2.local\",\n  \"password\": \"Caixa@123\"\n}"
+        "text": "{\n  \"email\": \"caixa@singularidade.local\",\n  \"password\": \"Caixa@123\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -75,7 +75,7 @@
     },
     {
       "_id": "req_me",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/auth/me",
@@ -94,7 +94,7 @@
     },
     {
       "_id": "req_clients_list",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/clients",
@@ -113,7 +113,7 @@
     },
     {
       "_id": "req_clients_create",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/clients",
@@ -140,7 +140,7 @@
     },
     {
       "_id": "req_client_history",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/clients/{{ client_id }}/history",
@@ -165,7 +165,7 @@
     },
     {
       "_id": "req_products_list",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/products",
@@ -184,7 +184,7 @@
     },
     {
       "_id": "req_products_create",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/products",
@@ -211,7 +211,7 @@
     },
     {
       "_id": "req_sales_create",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/sales",
@@ -238,7 +238,7 @@
     },
     {
       "_id": "req_sales_cancel",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/sales/{{ sale_id }}/cancel",
@@ -263,7 +263,7 @@
     },
     {
       "_id": "req_users_list",
-      "parentId": "wrk_ms2_pdv",
+      "parentId": "wrk_singularidade_pdv",
       "modified": 1760916000000,
       "created": 1760916000000,
       "url": "{{ _.base_url }}/users",

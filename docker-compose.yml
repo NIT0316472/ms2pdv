@@ -1,17 +1,17 @@
 services:
   mysql:
     image: mysql:8.4
-    container_name: ms2-pdv-mysql
+    container_name: singularidade-pdv-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ms2_pdv
-      MYSQL_USER: ms2
-      MYSQL_PASSWORD: ms2_dev_password
+      MYSQL_DATABASE: singularidade_pdv
+      MYSQL_USER: singularidade
+      MYSQL_PASSWORD: singularidade_dev_password
       MYSQL_ROOT_PASSWORD: root_dev_password
     ports:
       - "3307:3306"
     volumes:
-      - ms2_mysql_data:/var/lib/mysql
+      - singularidade_mysql_data:/var/lib/mysql
 
 volumes:
-  ms2_mysql_data:
+  singularidade_mysql_data:

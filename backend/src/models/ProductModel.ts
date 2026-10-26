@@ -6,6 +6,9 @@ export interface Product {
   code: string;
   name: string;
   description: string | null;
+  size?: string | null;
+  color?: string | null;
+  gender?: string | null;
   price: number;
   stock_quantity: number;
   active: boolean | number;
@@ -16,6 +19,9 @@ export interface CreateProductData {
   code: string;
   name: string;
   description?: string | null;
+  size?: string | null;
+  color?: string | null;
+  gender?: string | null;
   price: number;
   stockQuantity: number;
 }
@@ -24,6 +30,9 @@ export interface UpdateProductData {
   code?: string;
   name?: string;
   description?: string | null;
+  size?: string | null;
+  color?: string | null;
+  gender?: string | null;
   price?: number;
   stockQuantity?: number;
   active?: boolean;
@@ -74,13 +83,16 @@ export class ProductModel {
 
     await query(
       `INSERT INTO products
-       (id, code, name, description, price, stock_quantity)
-       VALUES (?, ?, ?, ?, ?, ?)`,
+       (id, code, name, description, size, color, gender, price, stock_quantity)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         data.code,
         data.name,
         data.description ?? null,
+        data.size ?? null,
+        data.color ?? null,
+        data.gender ?? null,
         data.price,
         data.stockQuantity
       ]
@@ -106,6 +118,21 @@ export class ProductModel {
     if (data.description !== undefined) {
       fields.push('description = ?');
       values.push(data.description);
+    }
+
+    if (data.size !== undefined) {
+      fields.push('size = ?');
+      values.push(data.size);
+    }
+
+    if (data.color !== undefined) {
+      fields.push('color = ?');
+      values.push(data.color);
+    }
+
+    if (data.gender !== undefined) {
+      fields.push('gender = ?');
+      values.push(data.gender);
     }
 
     if (data.price !== undefined) {

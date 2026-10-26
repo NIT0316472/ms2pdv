@@ -14,7 +14,7 @@ app.use(express.json());
 app.get("/", (_req, res) => res.redirect("/health"));
 
 app.get("/health", (_, res) =>
-  res.json({ status: "ok", project: "MS² Vestuário PDV" }),
+  res.json({ status: "ok", project: "Singularidade PDV" }),
 );
 app.use("/api/auth", auth);
 app.use("/api/clients", clients);
