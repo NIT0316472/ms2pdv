@@ -4,3 +4,4 @@
 ALTER TABLE sales
 ADD COLUMN payment_method ENUM('PIX', 'DEBIT_CARD', 'CREDIT_CARD') NOT NULL DEFAULT 'PIX'
 AFTER total;
+
