@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '../services/api';
-import { Client, Product } from '../types';
+import { Client, Product, PaymentMethod } from '../types';
 import { useAuth } from '../context/AuthContext';
 
 export default function Pdv() {
@@ -10,6 +10,7 @@ export default function Pdv() {
   const [clientId, setClientId] = useState('');
   const [items, setItems] = useState<{ productId: string; quantity: number }[]>([]);
   const [discount, setDiscount] = useState('0');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('PIX');
   const [search, setSearch] = useState('');
   const [msg, setMsg] = useState('');
 
@@ -85,11 +86,21 @@ export default function Pdv() {
         clientId,
         items,
         discountPercent: Number(discount),
+        paymentMethod,
       });
-      setMsg(`✓ Venda registrada com sucesso! ID: ${response.data.sale.id.slice(0, 8)}... | Total: R$ ${Number(response.data.sale.total).toFixed(2)}`);
+
+      const paymentLabels: Record<PaymentMethod, string> = {
+        PIX: 'PIX',
+        DEBIT_CARD: 'Cartão de Débito',
+        CREDIT_CARD: 'Cartão de Crédito',
+      };
+
+      setMsg(
+        `✓ Venda registrada com sucesso! ID: ${response.data.sale.id.slice(0, 8)}... | Pagamento: ${paymentLabels[paymentMethod]} | Total: R$ ${Number(response.data.sale.total).toFixed(2)}`
+      );
       setItems([]);
       setDiscount('0');
-      // Recarrega produtos para refletir a baixa de estoque em tempo real
+      setPaymentMethod('PIX');
       loadData();
     } catch (e: any) {
       setMsg(e.response?.data?.message ?? 'Erro no checkout');
@@ -212,6 +223,19 @@ export default function Pdv() {
             Alçada máxima autorizada para seu perfil ({user?.role === 'MANAGER' ? 'Gerente' : 'Caixa'}):{' '}
             <strong style={{ color: 'var(--primary)' }}>{maxDiscountAllowed}%</strong>
           </small>
+
+          <label style={{ display: 'grid', gap: '6px', marginBottom: '14px' }}>
+            <span style={{ fontWeight: 600 }}>Forma de Pagamento:</span>
+            <select
+              value={paymentMethod}
+              onChange={e => setPaymentMethod(e.target.value as PaymentMethod)}
+              style={{ padding: '10px 12px', borderRadius: '8px' }}
+            >
+              <option value="PIX">📱 PIX</option>
+              <option value="DEBIT_CARD">💳 Cartão de Débito</option>
+              <option value="CREDIT_CARD">💳 Cartão de Crédito</option>
+            </select>
+          </label>
 
           <p style={{ display: 'flex', justifyContent: 'space-between', margin: '6px 0' }}>
             <span>Subtotal:</span>

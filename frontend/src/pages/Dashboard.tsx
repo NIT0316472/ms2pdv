@@ -131,6 +131,7 @@ export default function Dashboard() {
                   <th>Data/Hora</th>
                   <th>Cliente</th>
                   <th>Operador</th>
+                  <th>Pagamento</th>
                   <th>Desconto</th>
                   <th>Total</th>
                   <th>Status</th>
@@ -138,15 +139,24 @@ export default function Dashboard() {
                 </tr>
               </thead>
               <tbody>
-                {sales.map(sale => (
-                  <tr key={sale.id}>
-                    <td>{new Date(sale.created_at).toLocaleString('pt-BR')}</td>
-                    <td>{sale.client_name || 'Cliente'}</td>
-                    <td>{sale.user_name || 'Operador'}</td>
-                    <td>{Number(sale.discount_percent)}%</td>
-                    <td style={{ fontWeight: 700, color: 'var(--text)' }}>
-                      R$ {Number(sale.total).toFixed(2)}
-                    </td>
+                {sales.map(sale => {
+                  const paymentLabels: Record<string, string> = {
+                    PIX: '📱 PIX',
+                    DEBIT_CARD: '💳 Débito',
+                    CREDIT_CARD: '💳 Crédito',
+                  };
+                  return (
+                    <tr key={sale.id}>
+                      <td>{new Date(sale.created_at).toLocaleString('pt-BR')}</td>
+                      <td>{sale.client_name || 'Cliente'}</td>
+                      <td>{sale.user_name || 'Operador'}</td>
+                      <td style={{ fontWeight: 600, color: 'var(--primary)' }}>
+                        {paymentLabels[sale.payment_method] || sale.payment_method || 'PIX'}
+                      </td>
+                      <td>{Number(sale.discount_percent)}%</td>
+                      <td style={{ fontWeight: 700, color: 'var(--text)' }}>
+                        R$ {Number(sale.total).toFixed(2)}
+                      </td>
                     <td>
                       <span
                         style={{
@@ -187,8 +197,9 @@ export default function Dashboard() {
                       )}
                     </td>
                   </tr>
-                ))}
-              </tbody>
+                );
+              })}
+            </tbody>
             </table>
           </div>
         )}

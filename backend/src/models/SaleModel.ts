@@ -9,6 +9,7 @@ export interface Sale {
   discount_percent: number;
   discount_amount: number;
   total: number;
+  payment_method: 'PIX' | 'DEBIT_CARD' | 'CREDIT_CARD';
   status: 'COMPLETED' | 'CANCELLED';
   cancelled_by: string | null;
   created_at: string | Date;
@@ -24,6 +25,7 @@ export interface CreateSaleData {
   discountPercent: number;
   discountAmount: number;
   total: number;
+  paymentMethod?: 'PIX' | 'DEBIT_CARD' | 'CREDIT_CARD';
 }
 
 export class SaleModel {
@@ -37,6 +39,7 @@ export class SaleModel {
          s.discount_percent,
          s.discount_amount,
          s.total,
+         s.payment_method,
          s.status,
          s.cancelled_by,
          s.created_at,
@@ -93,7 +96,8 @@ export class SaleModel {
         data.subtotal,
         data.discountPercent,
         data.discountAmount,
-        data.total
+        data.total,
+        data.paymentMethod ?? 'PIX'
       ]
     );
 

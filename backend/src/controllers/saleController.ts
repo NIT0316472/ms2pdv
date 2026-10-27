@@ -13,6 +13,7 @@ const schema = z.object({
     )
     .min(1),
   discountPercent: z.number().min(0),
+  paymentMethod: z.enum(["PIX", "DEBIT_CARD", "CREDIT_CARD"]).default("PIX"),
 });
 export async function create(req: Request, res: Response) {
   const p = schema.safeParse(req.body);
