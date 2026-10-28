@@ -22,7 +22,7 @@ Para a defesa técnica exigida pela banca da Unidade Curricular de Desenvolvimen
 ### Parte 1 — Pitch Técnico (7 minutos)
 1. **Capa:** Singularidade, autores e unidade curricular.
 2. **O Cenário e o Problema:** A era do papel, filas no checkout e inconsistência financeira.
-3. **A Solução Proposta:** Catálogo de Produtos com gerador de código aleatório (formato 2 letras + 3 números, ex: `MS001`), Base de Clientes (CPF único) e Frente de Caixa (PDV).
+3. **A Solução Proposta:** Catálogo de Produtos com gerador de código aleatório (formato 3 letras + 3 números, ex: `MS001`), Base de Clientes (CPF único) e Frente de Caixa (PDV).
 4. **Arquitetura e Tecnologias:** React/Vite, Node.js/Express, TypeScript, MySQL 8.4, Docker, Zod, JWT.
 5. **Modelagem de Dados:** DER em Terceira Forma Normal (relação Usuários, Clientes, Produtos, Vendas e Itens da Venda).
 6. **Principais Desafios:** Concorrência de estoque, comunicação CORS/tipagem unificada e controle de alçadas de desconto.
@@ -36,7 +36,7 @@ Para a defesa técnica exigida pela banca da Unidade Curricular de Desenvolvimen
 ### Parte 2 — Roteiro da Live Demo (8 minutos)
 1. **Login como Caixa:** `caixa@singularidade.local` / `Caixa@123` (ou botão de atalho na tela de login).
 2. **Cadastrar Cliente:** Inserir nome e CPF (com validação de formato e unicidade).
-3. **Cadastrar Produto:** Utilizar o botão `🎲 Gerar Código Aleatório` (gera no formato 2 letras e 3 números, ex: `MS001`), definindo preço e estoque.
+3. **Cadastrar Produto:** Utilizar o botão `🎲 Gerar Código Aleatório` (gera no formato 3 letras e 3 números, ex: `MS001`), definindo preço e estoque.
 4. **Abrir PDV:**
    - Buscar o produto pelo código ou nome.
    - Selecionar o cliente cadastrado.

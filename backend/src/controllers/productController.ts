@@ -5,8 +5,8 @@ import { query } from "../config/db";
 import { generateRandomCode } from "../utils/codeGenerator";
 
 export function generateProductCode(): string {
-  // Gera código no formato exato: 2 letras e 3 números (ex: AB123)
-  return generateRandomCode(2, 3);
+  // Gera código no formato exato: 3 letras e 3 números com hífen (ex: CAM-001, ABC-123)
+  return generateRandomCode(3, 3);
 }
 
 export async function getGeneratedCode(_req: Request, res: Response) {

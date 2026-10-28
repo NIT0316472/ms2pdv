@@ -78,7 +78,7 @@ Troque essas senhas antes de qualquer uso real.
 6. Defesa — Slides interativos em `docs/apresentacao.html`, roteiro completo em `docs/APRESENTACAO_SLIDES.md` e checklist em `docs/DEFESA.md`.
 
 ## Gerador de Código de Produtos (2 Letras e 3 Números)
-O sistema conta com um gerador automático padronizado de códigos (ex: `MS001`, `AB123`) implementado tanto no Frontend (`Products.tsx`) quanto na API (`/api/products/generate-code`), com verificação de unicidade contra duplicidades no banco de dados.
+O sistema conta com um gerador automático padronizado de códigos (ex: `MS001`, `CAM-001`) implementado tanto no Frontend (`Products.tsx`) quanto na API (`/api/products/generate-code`), com verificação de unicidade contra duplicidades no banco de dados.
 
 ## Apresentação Final (Sprint 6)
 - **Apresentação Interativa em Slides:** Abra [`docs/apresentacao.html`](docs/apresentacao.html) no navegador para uma apresentação completa com timer de 15 minutos, modo apresentador (`N`) e tela cheia (`F`).

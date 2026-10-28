@@ -3,6 +3,7 @@ import {api} from '../services/api';
 import {Product} from '../types';
 import {useAuth} from '../context/AuthContext';
 import {generateRandomCode} from '../utils/codeGenerator';
+import { getProductImage } from '../data/productImages';
 
 const genderOptions = ['MASCULINO', 'FEMININO', 'UNISSEX'];
 const sizeOptions = ['PP', 'P', 'M', 'G', 'GG', '34', '36', '38', '40', '42', '44', '46', '48', '50', 'Único', 'Personalizado'];
@@ -44,7 +45,7 @@ export default function Products(){
     } catch {
       // Fallback local se a API estiver em modo offline
     }
-    const localCode = generateRandomCode(2, 3);
+    const localCode = generateRandomCode(3, 3);
     setForm(prev => ({ ...prev, code: localCode }));
     setMsg(`Código gerado localmente: ${localCode}`);
   }
@@ -120,7 +121,7 @@ export default function Products(){
       <form className="form" onSubmit={add}>
         <div style={{ display: 'flex', gap: '8px', alignItems: 'center', width: '100%' }}>
           <input
-            placeholder="Código (2 letras e 3 números, ex: SG001)"
+            placeholder="Código (ex: CAM-001)"
             value={form.code}
             onChange={e => setForm({ ...form, code: e.target.value.toUpperCase() })}
             style={{ textTransform: 'uppercase', minWidth: '260px' }}
@@ -128,13 +129,13 @@ export default function Products(){
           <button
             type="button"
             onClick={handleGenerateCode}
-            title="Gerar código aleatório no formato 2 letras e 3 números"
+            title="Gerar código aleatório no formato 3 letras e 3 números (XXX-000)"
             style={{ padding: '10px 16px', fontSize: '0.88rem' }}
           >
             🎲 Gerar Código Aleatório
           </button>
           <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
-            (Deixe em branco para gerar automaticamente ao salvar)
+            (Padrão XXX-000. Deixe em branco para gerar automaticamente)
           </span>
         </div>
         <input placeholder="Nome" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
@@ -184,6 +185,7 @@ export default function Products(){
       <table>
         <thead>
           <tr>
+            <th>Imagem</th>
             <th>Código</th>
             <th>Produto</th>
             <th>Tamanho</th>
@@ -197,6 +199,13 @@ export default function Products(){
         <tbody>
           {data.map(p => (
             <tr key={p.id}>
+              <td>
+                <img
+                  src={getProductImage(p.code, p.name)}
+                  alt={p.name}
+                  style={{ width: 52, height: 52, objectFit: 'cover', borderRadius: 8 }}
+                />
+              </td>
               <td>{p.code}</td>
               <td>{p.name}</td>
               <td>{p.size || '-'}</td>

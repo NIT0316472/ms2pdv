@@ -433,7 +433,7 @@
             <p>Digitalização completa do catálogo com busca rápida por código, nome ou descrição.</p>
             <ul style="margin-top: 10px;">
               <li>Grade com tamanho, cor e gênero.</li>
-              <li><span class="highlight-pill">Novo:</span> <b>Gerador de Código Aleatório (2 letras + 3 números, ex: AB123)</b> com garantia de unicidade.</li>
+              <li><span class="highlight-pill">Novo:</span> <b>Gerador de Código Aleatório (3 letras + 3 números, ex: CAM-001)</b> com garantia de unicidade.</li>
               <li>Controle e baixa de estoque em tempo real.</li>
             </ul>
           </div>
@@ -462,7 +462,7 @@
       </div>
       <div class="speaker-notes" id="notes-3">
         <b>Roteiro de Fala (Solução - 1 min):</b>
-        "Para erradicar o problema, construímos uma aplicação web dividida em três pilares: o Catálogo Digital com gerador inteligente de códigos no formato de duas letras e três números (ex: AB123), a Base de Clientes com bloqueio de duplicidade por CPF, e a Frente de Caixa veloz com cálculo automatizado e validação de alçadas de desconto."
+        "Para erradicar o problema, construímos uma aplicação web dividida em três pilares: o Catálogo Digital com gerador inteligente de códigos no formato de três letras e três números (ex: CAM-001), a Base de Clientes com bloqueio de duplicidade por CPF, e a Frente de Caixa veloz com cálculo automatizado e validação de alçadas de desconto."
       </div>
     </div>
 
@@ -595,7 +595,7 @@
             <h3>⚙️ Soluções de Engenharia</h3>
             <ul>
               <li><b>Transações Atômicas (ACID):</b> Uso de <code>withTransaction</code> com bloqueio <code>FOR UPDATE</code> no MySQL, prevenindo estoque negativo.</li>
-              <li><b>Gerador de Código Padronizado:</b> Algoritmo para <b>2 letras e 3 números (ex: AB123)</b> com loop de verificação de duplicidade no banco.</li>
+              <li><b>Gerador de Código Padronizado:</b> Algoritmo para <b>3 letras e 3 números (ex: CAM-001)</b> com loop de verificação de duplicidade no banco.</li>
               <li><b>Validação em Duas Camadas:</b> Frontend com feedback visual em tempo real e Backend validando token JWT com teto de desconto via variáveis de ambiente.</li>
             </ul>
           </div>
@@ -612,7 +612,7 @@
       </div>
       <div class="speaker-notes" id="notes-7">
         <b>Roteiro de Fala (Soluções - 1 min):</b>
-        "Para cada desafio criamos uma solução definitiva. Usamos transações com FOR UPDATE para travar o registro do item durante a baixa. Desenvolvemos o gerador de códigos de duas letras e três números com verificação de unicidade. E implementamos a arquitetura em camadas para que nenhuma regra dependa apenas da interface visual."
+        "Para cada desafio criamos uma solução definitiva. Usamos transações com FOR UPDATE para travar o registro do item durante a baixa. Desenvolvemos o gerador de códigos de três letras e três números com verificação de unicidade. E implementamos a arquitetura em camadas para que nenhuma regra dependa apenas da interface visual."
       </div>
     </div>
 
@@ -635,7 +635,7 @@
           </div>
           <div class="checklist-item" onclick="toggleCheck(this)">
             <div class="checklist-checkbox">✓</div>
-            <div><b>Passo 3:</b> Cadastro de produto usando o <b>Gerador de Código Aleatório (2 letras + 3 números)</b>.</div>
+            <div><b>Passo 3:</b> Cadastro de produto usando o <b>Gerador de Código Aleatório (3 letras + 3 números)</b>.</div>
           </div>
           <div class="checklist-item" onclick="toggleCheck(this)">
             <div class="checklist-checkbox">✓</div>
@@ -649,7 +649,7 @@
       </div>
       <div class="speaker-notes" id="notes-8">
         <b>Roteiro de Fala (Transição para Demo - 30 seg + 7 min Demo):</b>
-        "Agora vamos alternar para a aplicação rodando localmente na nossa máquina. Demonstraremos ao vivo o login, o cadastro do cliente, o cadastro da peça com o gerador de código de duas letras e três números, a montagem do carrinho, a validação do desconto e a conclusão da venda."
+        "Agora vamos alternar para a aplicação rodando localmente na nossa máquina. Demonstraremos ao vivo o login, o cadastro do cliente, o cadastro da peça com o gerador de código de três letras e três números, a montagem do carrinho, a validação do desconto e a conclusão da venda."
       </div>
     </div>
 

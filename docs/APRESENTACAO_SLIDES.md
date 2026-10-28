@@ -60,7 +60,7 @@
 - **Os Três Pilares da Solução:**
   1. **Catálogo Digital de Produtos:**
      - Digitalização do acervo com preço, estoque, grade (tamanho, cor, gênero).
-     - **Gerador Automático de Códigos (SKU):** Padrão padronizado de **2 letras e 3 números** (ex: `MS001`, `AB123`), eliminando erros de digitação e permitindo consultas ultrarrápidas no balcão.
+     - **Gerador Automático de Códigos (SKU):** Padrão padronizado de **3 letras e 3 números** (ex: `MS001`, `CAM-001`), eliminando erros de digitação e permitindo consultas ultrarrápidas no balcão.
   2. **Base de Clientes Confiável:**
      - Cadastro rápido com garantia de **unicidade por CPF** (RN01), evitando cadastros duplicados e permitindo rastreabilidade do histórico de compras.
   3. **Frente de Caixa (PDV Ágil & Seguro):**
@@ -70,7 +70,7 @@
      - **Baixa automática de estoque** com integridade transacional ACID.
 
 > **Roteiro de Fala do Slide 3 (Apresentador 2):**  
-> *"Para erradicar esses problemas, concebemos uma solução baseada em três pilares fundamentais. Primeiro, o Catálogo Digital com gerador inteligente de códigos no formato de duas letras e três números, permitindo busca instantânea. Segundo, a Base de Clientes com validação estrita de CPF único. E terceiro, a Frente de Caixa em tempo real, onde os cálculos são automáticos e há validação rigorosa de alçadas de desconto e estoque garantido no banco de dados."*
+> *"Para erradicar esses problemas, concebemos uma solução baseada em três pilares fundamentais. Primeiro, o Catálogo Digital com gerador inteligente de códigos no formato de três letras e três números, permitindo busca instantânea. Segundo, a Base de Clientes com validação estrita de CPF único. E terceiro, a Frente de Caixa em tempo real, onde os cálculos são automáticos e há validação rigorosa de alçadas de desconto e estoque garantido no banco de dados."*
 
 ---
 
@@ -128,13 +128,13 @@
   - **Transações SQL com `FOR UPDATE`:** Leitura bloqueante e decremento atômico com verificação de estoque no MySQL, impedindo estoque negativo.
   - **Arquitetura em Camadas (Clean Code):** Separação de responsabilidades em `routes` (roteamento), `controllers` (validação HTTP via Zod), `services` (regras de negócio) e `models` (consultas SQL parametrizadas contra SQL Injection).
   - **Gerador de Código Aleatório (2 Letras + 3 Números):**
-    - Algoritmo no padrão `[A-Z]{2}[0-9]{3}` (ex: `MS001`, `AB123`), com loop de verificação de colisão no banco de dados.
+    - Algoritmo no padrão `[A-Z]{3}-[0-9]{3}` (ex: `MS001`, `CAM-001`), com loop de verificação de colisão no banco de dados.
     - Disponibilizado tanto como helper e botão interativo no Frontend (`🎲 Gerar Código`) quanto fallback automático na API.
   - **Testes Unitários Automatizados (Vitest):** Cobertura de rotas, autenticação, alçadas de desconto e validação do formato do código gerado.
   - **Uso Estratégico de IA e Documentação:** Apoio na escrita de scripts de seed, validações Zod e documentação padronizada no formato Markdown.
 
 > **Roteiro de Fala do Slide 7 (Apresentador 2):**  
-> *"Superamos esses desafios adotando uma arquitetura em camadas clara. Implementamos transações com withTransaction no banco para atomicidade absoluta. Criamos o gerador de códigos de produtos no padrão de duas letras e três números com botão direto na interface e fallback no backend com proteção contra duplicidade. E consolidamos a confiabilidade com testes unitários automatizados via Vitest."*
+> *"Superamos esses desafios adotando uma arquitetura em camadas clara. Implementamos transações com withTransaction no banco para atomicidade absoluta. Criamos o gerador de códigos de produtos no padrão de três letras e três números com botão direto na interface e fallback no backend com proteção contra duplicidade. E consolidamos a confiabilidade com testes unitários automatizados via Vitest."*
 
 ---
 
@@ -143,7 +143,7 @@
 - **Roteiro dos 5 Passos da Live Demo (7 a 8 minutos):**
   1. **Login com Perfil de Caixa:** Autenticação no sistema e visualização do Dashboard.
   2. **Cadastro Rápido de Cliente:** Registro com nome, telefone e CPF com validação de formato e unicidade.
-  3. **Cadastro de Produto com Gerador de Código:** Demonstração do botão `🎲 Gerar Código Aleatório` (formato 2 letras + 3 números, ex: `MS001`), definição de preço e estoque.
+  3. **Cadastro de Produto com Gerador de Código:** Demonstração do botão `🎲 Gerar Código Aleatório` (formato 3 letras + 3 números, ex: `MS001`), definição de preço e estoque.
   4. **Abertura do PDV e Montagem do Carrinho:**
      - Busca rápida do produto pelo código gerado (`MS001`) ou nome.
      - Seleção do cliente recém-cadastrado.
@@ -191,7 +191,7 @@
 - **Resposta Técnica:**  
   *"A modelagem inicial sugeria as entidades conceituais (Usuários, Clientes, Vendas, Produtos). No entanto, pela Terceira Forma Normal (3FN), uma venda precisa suportar N produtos, cada um com sua respectiva quantidade e valor unitário histórico. Sem a tabela `sale_items`, teríamos atributos multivalorados ou repetição de linhas de venda, violando princípios fundamentais de bancos relacionais."*
 
-### Pergunta 2: *"Como funciona o gerador de códigos de duas letras e 3 números e como ele previne duplicidades?"*
+### Pergunta 2: *"Como funciona o gerador de códigos de três letras e 3 números e como ele previne duplicidades?"*
 - **Resposta Técnica:**  
   *"O gerador utiliza um algoritmo que combina 2 caracteres alfabéticos maiúsculos (`A-Z`) e um número inteiro de 3 dígitos com preenchimento de zeros à esquerda (`000` a `999`), resultando em 676.000 combinações possíveis. Tanto no endpoint da API quanto no formulário do frontend, o sistema valida no banco se o código gerado já existe. Caso exista, um novo código é gerado automaticamente antes de retornar ou salvar, garantindo a constraint UNIQUE."*
 

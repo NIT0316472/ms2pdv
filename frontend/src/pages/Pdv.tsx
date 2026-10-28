@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { api } from '../services/api';
 import { Client, Product, PaymentMethod } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { getProductImage } from '../data/productImages';
 
 export default function Pdv() {
   const { user } = useAuth();
@@ -132,7 +133,7 @@ export default function Pdv() {
           </div>
 
           <input
-            placeholder="🔍 Buscar produto por código (ex: SG001), nome ou descrição..."
+            placeholder="🔍 Buscar produto por código (ex: CAM-001), nome ou descrição..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             style={{ width: '100%', marginBottom: '14px' }}
@@ -146,7 +147,13 @@ export default function Pdv() {
                 disabled={!p.stock_quantity}
                 onClick={() => add(p.id)}
                 title={`Clique para adicionar ${p.name}`}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: '8px' }}
               >
+                <img
+                  src={getProductImage(p.code, p.name)}
+                  alt={p.name}
+                  style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 8 }}
+                />
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                   <span style={{ fontSize: '0.78rem', color: 'var(--primary)', fontWeight: 800 }}>
                     [{p.code}]
